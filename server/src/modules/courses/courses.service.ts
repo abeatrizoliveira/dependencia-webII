@@ -2,10 +2,11 @@ import { isUniqueViolation } from "../../database/unique-violation";
 import { HttpError } from "../../errors";
 import { positiveInteger, validateBody, validateName } from "../../validation";
 import { PgCourseRepository } from "./courses.repository";
+import type { CourseRepository } from "./courses.repository";
 
 
 export class CoursesService {
-  constructor(private readonly repository: PgCourseRepository) {}
+  constructor(private readonly repository: CourseRepository) {}
 
   async create(input: unknown) {
     const data = validateBody(input);

@@ -5,7 +5,14 @@ export interface Course {
   name: string;
 }
 
-export class PgCourseRepository {
+export interface CourseRepository {
+  create(data: { name: string }): Promise<Course>;
+  findAll(): Promise<Course[]>;
+  findOne(id: number): Promise<Course | undefined>;
+}
+
+
+export class PgCourseRepository implements CourseRepository {
   constructor(private readonly db: Database) { }
   async create(data: { name: string }) {
     const { rows } = await this.db.query<Course>(
